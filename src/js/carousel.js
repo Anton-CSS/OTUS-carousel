@@ -107,6 +107,7 @@ export default class Carousel {
       this.options.position < this.options.maxPosition
     ) {
       ++this.options.position;
+      console.log(this.options.position);
       if (this.options.position > this.options.maxPosition) {
         this.options.position = 0;
       }
@@ -135,12 +136,15 @@ export default class Carousel {
         for (let i = 0; i < allResponsive.length; i++) {
           if (widthWindow < allResponsive[i]) {
             this.slideToShow = this.responsive[i].slideToShow;
+            this.options.maxPosition = this.sliders.length - this.slideToShow;
             this.options.widthSlide = Math.floor(100 / this.slideToShow);
             this.addStyle();
+            console.log(this.slideToShow);
           }
         }
       } else {
         this.slideToShow = sliderToShowDefault;
+        this.options.maxPosition = this.sliders.length - this.slideToShow;
         this.options.widthSlide = Math.floor(100 / this.slideToShow);
         this.addStyle();
       }
