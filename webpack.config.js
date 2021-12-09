@@ -45,12 +45,17 @@ module.exports = {
     filename: filename("js"),
     assetModuleFilename: "images/[name][ext]",
     clean: true,
-    publicPath: "/",
+    publicPath: "./",
   },
   devServer: {
     port: 3000,
     historyApiFallback: true,
     hot: true,
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
   devtool: isProd ? false : "source-map",
   optimization: optimization(),

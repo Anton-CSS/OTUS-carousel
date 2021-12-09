@@ -139,7 +139,6 @@ export default class Carousel {
             this.options.maxPosition = this.sliders.length - this.slideToShow;
             this.options.widthSlide = Math.floor(100 / this.slideToShow);
             this.addStyle();
-            console.log(this.slideToShow);
           }
         }
       } else {
