@@ -1,0 +1,68 @@
+{
+  "name": "slider-carousel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "prettier --check . && eslint .",
+    "lint:fix": "prettier --write . && eslint . --fix",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "dev": "cross-env NODE_ENV=development webpack --mode development",
+    "start": "cross-env NODE_ENV=development webpack serve --mode development --open",
+    "prepare": "husky install",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anton-CSS/OTUS-carousel.git"
+  },
+  "keywords": [],
+  "author": "Anton Rokunets",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anton-CSS/OTUS-carousel/issues"
+  },
+  "homepage": "https://github.com/Anton-CSS/OTUS-carousel#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/eslint-parser": "^7.15.8",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/preset-react": "^7.14.5",
+    "@types/jest": "^26.0.23",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.2.4",
+    "css-minimizer-webpack-plugin": "^3.2.0",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-react": "^7.26.1",
+    "gh-pages": "^3.2.0",
+    "html-loader": "^3.0.1",
+    "html-webpack-plugin": "^5.3.1",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "mini-css-extract-plugin": "^1.6.0",
+    "nodemon": "^2.0.14",
+    "postcss": "^8.3.11",
+    "postcss-loader": "^6.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.2.1",
+    "sass": "^1.32.13",
+    "sass-loader": "^11.1.1",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.2.5",
+    "webpack": "^5.31.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "lint-staged": {
+    "*.js, jsx": "eslint --cache --fix",
+    "*.{js, jsx, css,md,yml,html}": "prettier --write"
+  }
+}
