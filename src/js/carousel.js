@@ -12,7 +12,7 @@ export default class Carousel {
     this.main = document.querySelector(main);
     if (!main || !wrap) {
       console.wrap(
-        "slider-carousel: Необходимо передать 2 свойства main b wrap"
+        "slider-carousel: Необходимо передать 2 свойства main and wrap"
       );
     }
     this.main = document.querySelector(main);
@@ -107,7 +107,6 @@ export default class Carousel {
       this.options.position < this.options.maxPosition
     ) {
       ++this.options.position;
-      console.log(this.options.position);
       if (this.options.position > this.options.maxPosition) {
         this.options.position = 0;
       }

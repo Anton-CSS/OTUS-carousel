@@ -1,65 +1,40 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 
-const isDev = process.env.NODE_ENV === "development";
-const isProd = !isDev;
+let mode = "development";
+if (process.env.NODE_ENV === "production") {
+  mode = "production";
+}
 
-const filename = (ext) =>
-  isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`;
-
-const optimization = () => {
-  const config = {};
-
-  if (isProd) {
-    config.minimizer = [new CssMinimizerPlugin(), new TerserPlugin()];
-  }
-  return config;
-};
-
-const plugins = () => {
-  const base = [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src/index.html"),
-      filename: "index.html",
-      minify: {
-        collapseWhitespace: isProd,
-      },
-    }),
-    new MiniCssExtractPlugin({
-      filename: `./css/${filename("css")}`,
-    }),
-  ];
-
-  return base;
-};
+const name = () => (mode === "development" ? `[name]` : `[name].[contenthash]`);
 
 module.exports = {
   context: path.resolve(__dirname, "src"),
-  mode: "development",
+  mode: mode,
   entry: "./index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: filename("js"),
-    assetModuleFilename: "images/[name][ext]",
+    filename: `${name()}.js`,
     clean: true,
-    publicPath: "./",
+    publicPath: "",
+  },
+  resolve: {
+    extensions: [".js", ".ts"],
   },
   devServer: {
-    port: 5000,
-    historyApiFallback: true,
+    port: 3000,
     hot: true,
   },
-  performance: {
-    hints: false,
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
-  },
-  devtool: isProd ? false : "source-map",
-  optimization: optimization(),
-  plugins: plugins(),
+  devtool: "source-map",
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: `./css/${name()}.css`,
+    }),
+    new HtmlWebpackPlugin({
+      template: "./index.html",
+    }),
+  ],
   module: {
     rules: [
       {
@@ -67,9 +42,9 @@ module.exports = {
         loader: "html-loader",
       },
       {
-        test: /\.s[ac]ss$/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
-          isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           "css-loader",
           {
             loader: "postcss-loader",
@@ -94,9 +69,11 @@ module.exports = {
         type: "asset/resource",
       },
       {
-        test: /\.jsx?$/i,
-        exclude: /node_modules/,
-        use: ["babel-loader"],
+        test: /\.(j|t)s$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
+        },
       },
     ],
   },
